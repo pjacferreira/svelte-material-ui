@@ -4,7 +4,8 @@ import Head from './Head.svelte';
 import Body from './Body.svelte';
 import Row from './Row.svelte';
 import Cell from './Cell.svelte';
+import Pager from './Pager.svelte';
 
 export default DataTable;
 
-export {Head, Body, Row, Cell};
+export {Head, Body, Row, Cell, Pager};
