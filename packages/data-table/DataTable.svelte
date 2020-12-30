@@ -6,15 +6,14 @@
   on:MDCDataTable:rowSelectionChanged={handleChange}
   on:MDCDataTable:selectedAll={handleChange}
   on:MDCDataTable:unselectedAll={handleChange}
-  {...exclude($$props, ['use', 'class', 'table$'])}
->
+  {...exclude($$props, ['use', 'class', 'table$'])}>
   <table
     use:useActions={table$use}
     class="mdc-data-table__table {table$class}"
-    {...prefixFilter($$props, 'table$')}
-  >
-    <slot></slot>
+    {...prefixFilter($$props, 'table$')}>
+    <slot />
   </table>
+  <slot name="pager" />
 </div>
 
 <script>
@@ -70,7 +69,7 @@
     // Workaround for a bug in MDC DataTable where a table with no checkboxes
     // calls destroy on them anyway.
     if (!dataTable.headerRowCheckbox_) {
-      dataTable.headerRowCheckbox_ = {destroy() {}};
+      dataTable.headerRowCheckbox_ = { destroy() {} };
     }
     if (!dataTable.rowCheckboxList_) {
       dataTable.rowCheckboxList_ = [];

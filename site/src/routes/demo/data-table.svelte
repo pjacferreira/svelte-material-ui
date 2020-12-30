@@ -72,6 +72,31 @@
 
   <pre class="status">Selected: {selected.map(option => option.name).join(', ')}</pre>
   <pre class="status">Total: {selectedPrice}</pre>
+
+  <div>
+    With Sorting:
+
+    <div>
+      <DataTable>
+        <Head>
+          <Row>
+            <Cell sortable on:sort={onSortByName}>Name</Cell>
+            <Cell>Description</Cell>
+            <Cell>Price</Cell>
+          </Row>
+        </Head>
+        <Body>
+          {#each sortedOptions as option (option.name)}
+            <Row>
+              <Cell>{option.name}</Cell>
+              <Cell>{option.description}</Cell>
+              <Cell numeric>{option.price}</Cell>
+            </Row>
+          {/each}
+        </Body>
+      </DataTable>
+    </div>
+  </div>
 </section>
 
 <script>
@@ -103,4 +128,22 @@
     }
   ];
   let selected = [options[2]];
+
+  let sortedOptions = [...options];
+
+  function onSortByName(e) {
+    console.log(`NAME Sort Order [${e.detail}]`);
+    switch (e.detail) {
+      case "asc":
+        sortedOptions = sortedOptions.sort((a, b) =>
+          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+        );
+        break;
+      case "desc":
+        sortedOptions = sortedOptions.sort((a, b) =>
+          a.name < b.name ? 1 : a.name > b.name ? -1 : 0
+        );
+    }
+  }
+
 </script>
